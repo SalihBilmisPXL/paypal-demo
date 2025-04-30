@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>PayPal Button Styles Comparison</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .button-container {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 20px;
+        }
+        .button-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c2e2f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>PayPal Button Styles Comparison</h1>
+        
+        <div class="product-container">
+            <div class="product" style="width: 600px;">
+                <h2>Test Product - $10.00</h2>
+                
+                <div class="button-container">
+                    <div class="button-label">Default Button:</div>
+                    <div id="paypal-button-default"></div>
+                </div>
+
+                <div class="button-container">
+                    <div class="button-label">Horizontal Layout:</div>
+                    <div id="paypal-button-horizontal"></div>
+                </div>
+
+                <div class="button-container">
+                    <div class="button-label">Vertical Layout:</div>
+                    <div id="paypal-button-vertical"></div>
+                </div>
+
+                <div class="button-container">
+                    <div class="button-label">Gold Button:</div>
+                    <div id="paypal-button-gold"></div>
+                </div>
+
+                <div class="button-container">
+                    <div class="button-label">Blue Button:</div>
+                    <div id="paypal-button-blue"></div>
+                </div>
+
+                <div class="button-container">
+                    <div class="button-label">Silver Button:</div>
+                    <div id="paypal-button-silver"></div>
+                </div>
+
+                <div class="button-container">
+                    <div class="button-label">White Button:</div>
+                    <div id="paypal-button-white"></div>
+                </div>
+
+                <div class="button-container">
+                    <div class="button-label">Black Button:</div>
+                    <div id="paypal-button-black"></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html">Back to Main Demo</a>
+        </div>
+    </div>
+
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+
+    <script>
+        // Helper function to create a basic PayPal button configuration
+        function createButtonConfig() {
+            return {
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: '10.00'
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(orderData) {
+                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                        alert('Transaction completed! See console for details.');
+                    });
+                }
+            };
+        }
+
+        // Default button
+        paypal.Buttons(createButtonConfig()).render('#paypal-button-default');
+
+        // Horizontal layout
+        paypal.Buttons({
+            ...createButtonConfig(),
+            style: {
+                layout: 'horizontal'
+            }
+        }).render('#paypal-button-horizontal');
+
+        // Vertical layout
+        paypal.Buttons({
+            ...createButtonConfig(),
+            style: {
+                layout: 'vertical'
+            }
+        }).render('#paypal-button-vertical');
+
+        // Gold button
+        paypal.Buttons({
+            ...createButtonConfig(),
+            style: {
+                color: 'gold'
+            }
+        }).render('#paypal-button-gold');
+
+        // Blue button
+        paypal.Buttons({
+            ...createButtonConfig(),
+            style: {
+                color: 'blue'
+            }
+        }).render('#paypal-button-blue');
+
+        // Silver button
+        paypal.Buttons({
+            ...createButtonConfig(),
+            style: {
+                color: 'silver'
+            }
+        }).render('#paypal-button-silver');
+
+        // White button
+        paypal.Buttons({
+            ...createButtonConfig(),
+            style: {
+                color: 'white'
+            }
+        }).render('#paypal-button-white');
+
+        // Black button
+        paypal.Buttons({
+            ...createButtonConfig(),
+            style: {
+                color: 'black'
+            }
+        }).render('#paypal-button-black');
+    </script>
+</body>
+
+</html> 
